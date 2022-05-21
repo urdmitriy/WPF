@@ -1,0 +1,98 @@
+﻿<Window x:Class="DesktopApp.Forms.MultiEditContractWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:DesktopApp.Forms"
+        mc:Ignorable="d"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        materialDesign:ShadowAssist.CacheMode="{x:Null}"
+        
+        Title="Пакетное редактирование" Height="800" Width="800"
+        Closing="MultiEditContractWindow_OnClosing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" 
+                   Name="TextBlockTitle" 
+                   FontSize="20" 
+                   Margin="10"
+                   TextWrapping="Wrap">
+            Пакетное редактирование!!!
+        </TextBlock>
+        
+        <StackPanel Grid.Row="1">
+            <TextBlock Margin="10">Смена организации</TextBlock>
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBox KeyDown="TextBoxSearchCustomer_OnKeyDown" Name="TextBoxSearchCustomer" materialDesign:HintAssist.Hint="Поиск организации" Width="300" Margin="10 0 10 0"></TextBox>
+                <Button Click="ButtonSearchCustomer">Искать</Button>
+            </StackPanel>
+            <ScrollViewer VerticalScrollBarVisibility="Visible">
+                <ListBox Height="250" Name="ListBoxCustomer"></ListBox>
+            </ScrollViewer>
+            
+        </StackPanel>
+        
+        
+        <TextBox Grid.Row="2" 
+                 Name="TextBoxPayed"
+                 Margin="10" 
+                 materialDesign:HintAssist.Hint="Оплачен"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 VerticalAlignment="Center">
+        </TextBox>
+        
+        <TextBox Grid.Row="3" 
+                 Name="TextBoxSigned"
+                 Margin="10" 
+                 materialDesign:HintAssist.Hint="Подписан"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 VerticalAlignment="Center">
+        </TextBox>
+        
+        <TextBox Grid.Row="4" 
+                 Name="TextBoxDocuments"
+                 Margin="10" 
+                 materialDesign:HintAssist.Hint="Документы"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 VerticalAlignment="Center">
+        </TextBox>
+        
+        <TextBox Grid.Row="5" 
+                 Name="TextBoxSignedAct"
+                 Margin="10" 
+                 materialDesign:HintAssist.Hint="Акт"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 VerticalAlignment="Center">
+        </TextBox>
+        
+        <TextBox Grid.Row="6" 
+                 Name="TextBoxDatePay"
+                 Margin="10" 
+                 materialDesign:HintAssist.Hint="Дата оплаты"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 VerticalAlignment="Center">
+        </TextBox>
+        
+        <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+            <Button Name="ButtonUpdate" Click="ButtonUpdate_OnClick" Margin="2">Обновить</Button>
+            <Button Name="ButtonClose" Click="ButtonClose_OnClick" Margin="2">Закрыть</Button>
+        </StackPanel>
+    </Grid>
+</Window>

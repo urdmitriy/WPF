@@ -1,0 +1,92 @@
+﻿<Window x:Class="DesktopApp.Forms.EventWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:DesktopApp.Forms"
+        mc:Ignorable="d"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        materialDesign:ShadowAssist.CacheMode="{x:Null}"
+        
+        Title="События" Height="450" Width="800"
+        Closing="EventWindow_OnClosing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <DataGrid 
+            Grid.Row="0" Grid.Column="0"
+            Name="DataGridEvents"
+            AutoGenerateColumns="False"
+            IsReadOnly="True"
+            SelectionChanged="DataGridEvents_OnSelectionChanged">
+            
+            <DataGrid.Resources>
+                <Style TargetType="TextBlock" x:Key="WrapText">
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                </Style>
+            </DataGrid.Resources>
+            
+            <DataGrid.Columns>
+                
+                <DataGridTextColumn 
+                    Header="Наименование" 
+                    Width="2*"
+                    Binding="{Binding Path=Name}"
+                    ElementStyle="{StaticResource WrapText}">
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn
+                    Header="Счетчик" 
+                    Width="*"
+                    Binding="{Binding Path=CountPerson}">
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn 
+                    Header="Описание" 
+                    Width="3*"
+                    Binding="{Binding Path=Description}"
+                    ElementStyle="{StaticResource WrapText}">
+                </DataGridTextColumn>
+                
+                <DataGridCheckBoxColumn
+                    Header="Скрыт"
+                    Binding="{Binding Path=Hidden}"
+                    Width="*">
+                </DataGridCheckBoxColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <StackPanel Grid.Column="0" Grid.Row="1">
+            <TextBox TextChanged="TextBoxNameEvent_OnTextChanged" Name="TextBoxNameEvent" Visibility="Hidden"></TextBox>
+            <TextBox TextChanged="TextBoxDescription_OnTextChanged" Name="TextBoxDescription" Visibility="Hidden" Height="60"></TextBox>
+            <TextBlock Name="TextBlockEventId" Visibility="Collapsed"></TextBlock>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="1" Grid.Row="0">
+            <Button Click="ButtonAddEvent_OnClick" Name="ButtonAddEvent" Margin="2">Добавить</Button>
+            <Button Click="ButtonHideEvent_OnClick" Name="ButtonHideEvent" Margin="2">Скрыть</Button>
+            <Button Click="ButtonShowEvent_OnClick" Name="ButtonShowEvent" Margin="2">Отобразить</Button>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom">
+            <Button Click="ButtonEditEvent_OnClick" Name="ButtonUpdateEvent" Margin="2" Visibility="Collapsed">Обновить</Button>
+            <Button Click="ButtonExit_OnClick" Name="ButtonExit" Margin="2" Background="Firebrick" BorderBrush="Firebrick">Выход</Button>
+        </StackPanel>
+        
+    </Grid>
+</Window>

@@ -1,0 +1,206 @@
+﻿<Window x:Class="DesktopApp.Forms.RTNWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:DesktopApp.Forms"
+        mc:Ignorable="d"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        materialDesign:ShadowAssist.CacheMode="{x:Null}"
+
+        Title="Ростехнадзор" Height="450" Width="800"
+        WindowState="Maximized"
+        Closing="RTNWindow_OnClosing"
+        IsVisibleChanged="RTNWindow_OnIsVisibleChanged">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="0.8*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="150"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBox Grid.Column="0" Grid.Row="0" Name="TextBoxSearch"  materialDesign:HintAssist.Hint="Строка поиска" Margin="5"
+                 KeyDown="TextBoxSearch_OnKeyDown"></TextBox>
+        <StackPanel Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Button Click="ButtonClearSearch_OnClick" Name="ButtonClearSearch" Margin="1 1 10 1" Background="Firebrick" BorderBrush="Firebrick">X</Button>
+            <Button Click="ButtonAllPersonCustomer_OnClick" Name="ButtonAllPersonCustomer" Margin="1">Все учащиеся организации</Button>
+            <Button Click="ButtonClearCustomerSearch_OnClick" Name="ButtonClearCustomerSearch" Margin="1" Background="Firebrick" BorderBrush="Firebrick">X</Button>
+            <Button Click="ButtonUpdate_OnClick" Name="ButtonUpdate" Margin="50,0,0,0">Обновить данные</Button>
+        </StackPanel>
+        <DataGrid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Name="DataGridPersons" IsReadOnly="True" AutoGenerateColumns="False" Margin="5"
+                  SelectionChanged="DataGridPerons_OnSelectionChanged">
+            
+            <DataGrid.Resources>
+                <Style TargetType="TextBlock" x:Key="WrapText">
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                </Style>
+            </DataGrid.Resources>
+            
+            <DataGrid.Columns>
+                
+                <DataGridTextColumn 
+                    Header="Организация"
+                    Binding="{Binding Path=Customer}"
+                    ElementStyle="{StaticResource WrapText}"
+                    Width="*">
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn 
+                    Header="ФИО" 
+                    Binding="{Binding Path=FCs}"
+                    ElementStyle="{StaticResource WrapText}"
+                    Width="2*">
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn 
+                    Header="Примечание" 
+                    Binding="{Binding Path=Note}"
+                    ElementStyle="{StaticResource WrapText}"
+                    Width="1.5*">
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn 
+                    Header="Заявка" 
+                    Binding="{Binding Path=Application}"
+                    ElementStyle="{StaticResource WrapText}"
+                    Width="*">
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn 
+                    Header="Анкета" 
+                    Binding="{Binding Path=Questionnaire}"
+                    ElementStyle="{StaticResource WrapText}"
+                    Width="*">
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn 
+                    Header="Удостоверение" 
+                    Binding="{Binding Path=IdentityCard}"
+                    ElementStyle="{StaticResource WrapText}"
+                    Width="*">
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn 
+                    Header="Платежка" 
+                    Binding="{Binding Path=PaymentCard}"
+                    ElementStyle="{StaticResource WrapText}"
+                    Width="*">
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn 
+                    Header="Доверенность" 
+                    Binding="{Binding Path=Attorney}"
+                    ElementStyle="{StaticResource WrapText}"
+                    Width="*">
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn 
+                    Header="Согласие" 
+                    Binding="{Binding Path=Approval}"
+                    ElementStyle="{StaticResource WrapText}"
+                    Width="*">
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+            
+        </DataGrid>
+        
+        <Grid Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" >
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <GroupBox Grid.Row="0" Header="События" Margin="3">
+                <StackPanel Name="StackPanelEvents">
+                    <TextBlock Name="TextBlockSelectedEvent" Visibility="Collapsed"></TextBlock>
+                    <TextBlock Name="TextBlockSelectedCustomer" Visibility="Collapsed"></TextBlock>
+                </StackPanel>
+            </GroupBox>
+            
+            
+                
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Click="ButtonEditEvents_OnClick" Name="ButtonEditEvents" Margin="1">Редактировать</Button>
+            </StackPanel>
+        </Grid>
+        
+        
+        
+        <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <GroupBox Name="GroupBoxPersonInfo" Margin="0 0 2 0" Visibility="Collapsed">
+                <WrapPanel Orientation="Vertical" Margin="0 0 1 0">
+                    
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Margin="0 0 5 0">Дата подачи:</TextBlock>
+                        <TextBlock Name="TextBlockDateOfSubmission" Margin="0 0 5 0"></TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Margin="0 0 5 0">Должность:</TextBlock>
+                        <TextBlock Name="TextBlockPost" Margin="0 0 5 0" MaxWidth="200" TextWrapping="Wrap"></TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Margin="0 0 5 0">Телефон:</TextBlock>
+                        <TextBlock Name="TextBlockPhone" Margin="0 0 5 0"></TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0 0 5 0">Эл.почта:</TextBlock>
+                        <TextBlock Name="TextBlockEmail" Margin="0 0 5 0"></TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0 0 5 0">Доступ:</TextBlock>
+                        <TextBlock Name="TextBlockAccess" Margin="0 0 5 0"></TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0 0 5 0">Аттестация:</TextBlock>
+                        <TextBlock Name="TextBlockCertification" Margin="0 0 5 0"></TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0 0 5 0">Дата экзамена:</TextBlock>
+                        <TextBlock 
+                            Name="TextBlockDateEzam" 
+                            Margin="0 0 5 0"></TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0 0 5 0">Текущее событие:</TextBlock>
+                        <TextBlock Name="TextBlockEvent" Margin="0 0 5 0">ХХХХХХХХХХХХХХХХХ</TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0 0 5 0">№ Группы:</TextBlock>
+                        <TextBlock Name="TextBlockGroup" Margin="0 0 5 0" MaxWidth="200" TextWrapping="Wrap">ХХХХХХХХХХХХХХХХХ</TextBlock>
+                    </StackPanel>
+                    
+                </WrapPanel>
+            </GroupBox>
+            <GroupBox Header="Учащиеся" Margin="0 0 2 0">
+                <WrapPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <Button Click="ButtonAddPerson_OnClick" Name="ButtonAddPerson" Margin="1" Background="ForestGreen" BorderBrush="ForestGreen">Добавить</Button>
+                    <Button Click="ButtonEditPerson_OnClick" Name="ButtonEditPerson" Margin="1">Редактировать</Button>
+                    <Button Click="ButtonShowHistory_OnClick" Name="ButtonShowHistory" Margin="1" Background="Chocolate" BorderBrush="Chocolate">История событий</Button>
+                    <Button Click="ButtonChangeEvent_OnClick" Name="ButtonChangeEvent" Margin="1" Background="Indigo" BorderBrush="Indigo">Изменить событие</Button>
+                </WrapPanel>
+            </GroupBox>
+            
+        </StackPanel>
+    </Grid>
+</Window>

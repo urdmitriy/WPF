@@ -1,0 +1,54 @@
+﻿<Window x:Class="DesktopApp.Forms.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:DesktopApp.Forms"
+        mc:Ignorable="d"
+        Title="Авторизация" Height="300" Width="400"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        materialDesign:ShadowAssist.CacheMode="{x:Null}"
+        
+        WindowStyle="None" WindowStartupLocation="CenterScreen"
+>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Image Grid.Row="0" Source="pack://application:,,,/img/logo.png" Margin="10" ></Image>
+        
+        <TextBox Grid.Row="1" 
+                     Name="TextBoxLogin"
+                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                     VerticalAlignment="Top"
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"
+                     MaxWidth="400"
+                     Background="White"
+                     materialDesign:HintAssist.Hint="Введите логин"></TextBox>
+        <PasswordBox Grid.Row="2"  
+                     Name="PasswordBox"
+                     Style="{StaticResource MaterialDesignFilledPasswordBox}"
+                     VerticalAlignment="Top"
+                     Background="White"
+                     materialDesign:HintAssist.Hint="Введите пароль"
+                     KeyDown="PasswordBox_OnKeyDown"></PasswordBox>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Name="ButtonEnter" Click="ButtonEnter_OnClick" Margin="10">Вход</Button>
+            <Button Name="ButtonExit" Click="ButtonExit_OnClick" Margin="10" Background="Firebrick" BorderBrush="Firebrick">Выход</Button>
+        </StackPanel>
+    </Grid>
+</Window>

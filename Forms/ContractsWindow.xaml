@@ -1,0 +1,270 @@
+﻿<Window x:Class="DesktopApp.Forms.ContractsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:DesktopApp"
+        mc:Ignorable="d"
+        Title="Договоры" Height="800" Width="1300" WindowState="Maximized"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        materialDesign:ShadowAssist.CacheMode="{x:Null}"
+        
+        Closing="ContractsWindow_OnClosing"
+        Loaded="ContractsWindow_OnLoaded">
+    <Window.Resources>
+        <local:MarkNullValue x:Key="MarkNullValue"></local:MarkNullValue>
+        <Style x:Key="StyleNullValue">
+            <Setter Property="TextBlock.Background" Value="{Binding Path=Date, Converter={StaticResource MarkNullValue}}"></Setter>
+        </Style>
+        
+        <local:MarkEmptyContract x:Key="MarkEmptyContract"></local:MarkEmptyContract>
+        <Style x:Key="StyleEmptyContract">
+            <Setter Property="TextBlock.Background" Value="{Binding Path=CustomerName, Converter={StaticResource MarkEmptyContract}}"></Setter> 
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap"></Setter>
+        </Style>
+        
+        <local:MarkNotEmptyDescriptionBuh x:Key="MarkNotEmptyDescriptionBuh"></local:MarkNotEmptyDescriptionBuh>
+        <Style x:Key="StyleNotEmptyDescriptionBuh">
+            <Setter Property="TextBlock.Background" Value="{Binding Path=Description, Converter={StaticResource MarkNotEmptyDescriptionBuh}}"></Setter>
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap"></Setter>
+        </Style>
+        
+        <local:ConvertDateToShort x:Key="DateToShort"></local:ConvertDateToShort>
+        
+        <Style x:Key="StyleSumma" TargetType="DataGridCell">
+            <Setter Property="TextBlock.TextAlignment" Value="Right"></Setter>
+        </Style>
+        
+        <local:SetColorCell x:Key="SetColorCell"></local:SetColorCell>
+        <local:SetColorCellDocuments x:Key="SetColorCellDocuments"></local:SetColorCellDocuments>
+        
+        <Style x:Key="StyleCellPayed" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Background" Value="{Binding Path=Payed, Converter={StaticResource SetColorCell}}"></Setter>
+            <Setter Property="TextBlock.TextAlignment" Value="Center"></Setter>
+            <Setter Property="Foreground" Value="Black"></Setter>
+        </Style>
+        
+        <Style x:Key="StyleCellSigned" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Background" Value="{Binding Path=Signed, Converter={StaticResource SetColorCell}}"></Setter>
+            <Setter Property="TextBlock.TextAlignment" Value="Center"></Setter>
+            <Setter Property="Foreground" Value="Black"></Setter>
+        </Style>
+        
+        <Style x:Key="StyleCellDocuments" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Background" Value="{Binding Path=Documents, Converter={StaticResource SetColorCellDocuments}}"></Setter>
+            <Setter Property="TextBlock.TextAlignment" Value="Center"></Setter>
+            <Setter Property="Foreground" Value="Black"></Setter>
+        </Style>
+        
+        <Style x:Key="StyleCellSignedAct" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Background" Value="{Binding Path=SignedAct, Converter={StaticResource SetColorCell}}"></Setter>
+            <Setter Property="TextBlock.TextAlignment" Value="Center"></Setter>
+            <Setter Property="Foreground" Value="Black"></Setter>
+        </Style>
+        
+        <local:SetColorBuh x:Key="SetColorCellBuh"></local:SetColorBuh>
+        <Style x:Key="StyleCellColorBuh" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <MultiBinding Converter="{StaticResource SetColorCellBuh}">
+                        <Binding Path="DatePayed"/>
+                        <Binding Path="Percent"/>
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="Black"></Setter>
+        </Style>
+        
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="170"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Grid.Row="0" Grid.Column="0" Margin="5" Orientation="Horizontal">
+                <TextBox Name="TextBoxSearch" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left"
+                         materialDesign:HintAssist.Hint="Строка поиска"
+                         KeyDown="TextBoxSearch_OnKeyDown"></TextBox>
+                
+            </StackPanel>
+           
+            
+            <StackPanel Grid.Row="1" Grid.Column="0" Margin="5" Orientation="Horizontal">
+                <Button Name="ButtonCustomerSelect" Click="ButtonCustomerSelect_OnClick">Выборка по Заказчику</Button>
+                <Button Name="ButtonClearSearchText" Click="ButtonClearSearchText_OnClick" Background="Crimson">X</Button>
+                <Button Click="ButtonUpdate_OnClick" Name="ButtonUpdate" Margin="100,0,0,0">Обновить данные</Button>
+            </StackPanel>
+            
+            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 5 0">
+                <TextBlock VerticalAlignment="Center" Margin="5">C</TextBlock>
+                <DatePicker SelectedDateChanged="DatePickerFrom_OnSelectedDateChanged" 
+                            VerticalAlignment="Center" Margin="5" Name="DatePickerFrom"
+                            SelectedDateFormat="Short"></DatePicker>
+                <TextBlock VerticalAlignment="Center" Margin="5">По</TextBlock>
+                <DatePicker SelectedDateChanged="DatePickerTo_OnSelectedDateChanged" 
+                            VerticalAlignment="Center" Margin="5" Name="DatePickerTo"
+                            SelectedDateFormat="Short"></DatePicker>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                <Button Name="ButtonAllYears" Margin="1" Click="ButtonAllYears_OnClick">За всё время</Button>
+                <Button Name="ButtonPreviusYear" Margin="1" Click="ButtonPreviusYear_OnClick"></Button>
+                <Button Name="ButtonCurrentYear" Margin="1" Click="ButtonCurrentYear_OnClick"></Button>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Name="StackPanelFilters" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5">
+                <TextBlock Margin="0,0,10,0">Фильтры:</TextBlock>
+                <CheckBox Checked="FilterChange" Unchecked="FilterChange" Name="CheckBoxNotPayed" Margin="0,0,30,0">Не оплачен</CheckBox>
+                <CheckBox Checked="FilterChange" Unchecked="FilterChange" Name="CheckBoxNotSigned" Margin="0,0,30,0">Не подписан</CheckBox>
+                <CheckBox Checked="FilterChange" Unchecked="FilterChange" Name="CheckBoxNotDocuments" Margin="0,0,30,0">Не выданы документы</CheckBox>
+                <CheckBox Checked="FilterChange" Unchecked="FilterChange" Name="CheckBoxNotAct" Margin="0,0,30,0">Не выдан акт</CheckBox>
+                <CheckBox Checked="FilterChange" Unchecked="FilterChange" Name="CheckBoxPercent" Margin="0,0,30,0">%</CheckBox>
+            </StackPanel>
+        </Grid>
+        
+        <DataGrid Grid.Row="1" Name="DataGridContract" IsReadOnly="True" AutoGenerateColumns="False" Background="White"
+                  
+                  SelectedCellsChanged="DataGridContract_OnSelectedCellsChanged"
+                  MouseDoubleClick="DataGridContract_OnMouseDoubleClick"
+                  >
+            <DataGrid.Resources>
+                <Style TargetType="TextBlock" x:Key="WrapText">
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№ договора" 
+                                    Binding="{Binding Path=Number}" 
+                                    Width="2*" 
+                                    ElementStyle="{StaticResource StyleEmptyContract}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата" 
+                                    Binding="{Binding Path=Date, 
+                                    Converter={StaticResource DateToShort}}" 
+                                    ElementStyle="{StaticResource StyleNullValue}" 
+                                    Width="1.1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Заказчик" 
+                                    Binding="{Binding Path=CustomerName}" 
+                                    Width="2*" 
+                                    ElementStyle="{StaticResource WrapText}"
+                                    ></DataGridTextColumn>
+                <DataGridTextColumn Header="Состав" 
+                                    Binding="{Binding Path=Solution}" 
+                                    Width="2*" 
+                                    ElementStyle="{StaticResource WrapText}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Сумма" 
+                                    Binding="{Binding Path=Sum, StringFormat={}{0:#,#.00}р.}" 
+                                    CellStyle="{StaticResource StyleSumma}" 
+                                    Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Оплачен" 
+                                    Binding="{Binding Path=Payed}" 
+                                    ElementStyle="{StaticResource WrapText}"
+                                    CellStyle="{StaticResource StyleCellPayed}" 
+                                    Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Подписан" 
+                                    Binding="{Binding Path=Signed}" 
+                                    ElementStyle="{StaticResource WrapText}"
+                                    CellStyle="{StaticResource StyleCellSigned}" 
+                                    Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Документы" 
+                                    Binding="{Binding Path=Documents}" 
+                                    ElementStyle="{StaticResource WrapText}"
+                                    CellStyle="{StaticResource StyleCellDocuments}" 
+                                    Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Акт" Binding="{Binding Path=SignedAct}" 
+                                    ElementStyle="{StaticResource WrapText}"
+                                    CellStyle="{StaticResource StyleCellSignedAct}" 
+                                    Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="№ группы" 
+                                    Binding="{Binding Path=GroupNum}" 
+                                    ElementStyle="{StaticResource WrapText}" 
+                                    Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Вх.№ заявки" 
+                                    Binding="{Binding Path=IncApplication}" 
+                                    ElementStyle="{StaticResource WrapText}" 
+                                    Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата вх.заявки" 
+                                    Binding="{Binding Path=DateIncApplication, 
+                                    Converter={StaticResource DateToShort}}" 
+                                    Width="1.1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Кол-во обуч." 
+                                    Binding="{Binding Path=CountPerson}" 
+                                    ElementStyle="{StaticResource WrapText}"
+                                    Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Примечание" 
+                                    Binding="{Binding Path=Description}" 
+                                    ElementStyle="{StaticResource StyleNotEmptyDescriptionBuh}" 
+                                    Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="%" 
+                                    Binding="{Binding Path=Percent}" 
+                                    CellStyle="{StaticResource StyleCellColorBuh}"    
+                                    ElementStyle="{StaticResource WrapText}" 
+                                    Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата платежа" 
+                                    Binding="{Binding Path=DatePayed}" 
+                                    ElementStyle="{StaticResource WrapText}" 
+                                    Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Примечание бух" 
+                                    Binding="{Binding Path=DescriptionBuh}" 
+                                    ElementStyle="{StaticResource WrapText}" 
+                                    Width="*"></DataGridTextColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+         
+        <StackPanel Name="StackPanelDescription" Grid.Row="2" Orientation="Horizontal" Visibility="Hidden">
+            <TextBlock Text="Договор добавлен" Margin="5 5 5 5" VerticalAlignment="Center"></TextBlock>    
+            <TextBlock Name="TextBlockCreateUser" Text="имя человека" Margin="5 5 5 5" VerticalAlignment="Center"></TextBlock>   
+            <TextBlock Name="TextBlockCreateDate" Text="дата" Margin="5 5 5 5" VerticalAlignment="Center"></TextBlock> 
+            <TextBlock Text="Изменен" Margin="5 5 5 5" VerticalAlignment="Center"></TextBlock> 
+            <TextBlock Name="TextBlockEditUser" Text="имя человека" Margin="5 5 5 5" VerticalAlignment="Center"></TextBlock> 
+            <TextBlock Name="TextBlockEditDate" Text="дата" Margin="5 5 5 5" VerticalAlignment="Center"></TextBlock>
+        </StackPanel>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Name="StackPanelSumm" Orientation="Horizontal">
+                <TextBlock Margin="5" VerticalAlignment="Center">Всего позиций в списке </TextBlock>
+                <TextBlock Name="TextBlockCountRecords" Margin="5" VerticalAlignment="Center">____</TextBlock>
+                <TextBlock Margin="5" VerticalAlignment="Center"> На сумму </TextBlock>
+                <TextBlock Name="TextBlockSumma" Margin="5" VerticalAlignment="Center">____</TextBlock>
+                <TextBlock Margin="5" VerticalAlignment="Center">р.</TextBlock>
+                
+                <TextBlock Margin="5" VerticalAlignment="Center"> % на сумму </TextBlock>
+                <TextBlock Name="TextBlockSummaPercent" Margin="5" VerticalAlignment="Center">____</TextBlock>
+                <TextBlock Margin="5" VerticalAlignment="Center">р.</TextBlock>
+                
+            </StackPanel>
+            <StackPanel Grid.Column="1"  Margin="5" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Name="TextBlockIdContract" Text="0" Visibility="Collapsed"></TextBlock>
+                <Button Click="ButtonAdd_OnClick" Name="ButtonAdd" Margin="1">Добавить</Button>
+                <Button Click="ButtonEdit_OnClick" Name="ButtonEdit" Margin="1">Редактировать</Button>
+                <Button Click="ButtonDelete_OnClick" Name="ButtonDelete" Margin="1" Background="Firebrick" BorderBrush="Firebrick">Удалить</Button>
+                <Button Click="ButtonExit_OnClick" Name="ButtonExit" Margin="1">Выйти</Button>
+            </StackPanel>
+        </Grid>
+        
+    </Grid>
+</Window>

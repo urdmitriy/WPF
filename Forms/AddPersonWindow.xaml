@@ -1,0 +1,110 @@
+﻿<Window x:Class="DesktopApp.Forms.AddPersonWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:DesktopApp.Forms"
+        mc:Ignorable="d"
+         
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        materialDesign:ShadowAssist.CacheMode="{x:Null}"
+
+        Title="Доавить учащегося" Height="500" Width="1000"
+        Closing="AddPersonWindow_OnClosing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Организация" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="5 0 5 0"></TextBlock>
+        <Grid Grid.Column="1" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="40"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    
+                    <ComboBox Grid.Column="0" Name="ComboBoxCustomers" IsEditable="True" VerticalAlignment="Center" Margin="5 0 5 0"></ComboBox>
+                    <Button Click="ButtonFiltr_OnClick" Grid.Column="1" Name="ButtonFiltr" Margin="0">V</Button>
+        </Grid>
+                
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="ФИО" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5 0 5 0"></TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="1" Name="TextBoxFCs" VerticalAlignment="Center" Margin="5 0 5 0"></TextBox>
+        
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Примечание" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="5 0 5 0"></TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="2" Name="TextBoxNote" VerticalAlignment="Center" Margin="5 0 5 0"></TextBox>
+        
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Заявка" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="5 0 5 0"></TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="3" Name="TextBoxApplication" VerticalAlignment="Center" Margin="5 0 5 0"></TextBox>
+        
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="Анкета" VerticalAlignment="Center"  HorizontalAlignment="Right" Margin="5 0 5 0"></TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="4" Name="TextBoxQuestionnaire" VerticalAlignment="Center" Margin="5 0 5 0"></TextBox>
+        
+        <TextBlock Grid.Column="0" Grid.Row="5" Text="Удостоверение" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="5 0 5 0"></TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="5" Name="TextBoxIdentityCard" VerticalAlignment="Center" Margin="5 0 5 0"></TextBox>
+        
+        <TextBlock Grid.Column="0" Grid.Row="6" Text="Платежка" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="5 0 5 0"></TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="6" Name="TextBoxPaymentCard" VerticalAlignment="Center" Margin="5 0 5 0"></TextBox>
+        
+        <TextBlock Grid.Column="0" Grid.Row="7" Text="Доверенность" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="5 0 5 0"></TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="7" Name="TextBoxAttorney" VerticalAlignment="Center" Margin="5 0 5 0"></TextBox>
+        
+        <TextBlock Grid.Column="0" Grid.Row="8" Text="№ Группы" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="5 0 5 0"></TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="8" Name="TextBoxGroup" VerticalAlignment="Center" Margin="5 0 5 0"></TextBox>
+        
+        <TextBlock Grid.Column="2" Grid.Row="0" Text="Согласие" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="5 0 5 0"></TextBlock>
+        <TextBox Grid.Column="3" Grid.Row="0" Name="TextBoxApproval" VerticalAlignment="Center" Margin="5 0 5 0"></TextBox>
+        
+        <TextBlock Grid.Column="2" Grid.Row="1" Text="Дата подачи" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="5 0 5 0"></TextBlock>
+        <DatePicker Grid.Column="3" Grid.Row="1" Name="DatePickerDateSub" VerticalAlignment="Center" Margin="5 0 5 0"></DatePicker>
+        
+        <TextBlock Grid.Column="2" Grid.Row="2" Text="Должность" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="5 0 5 0"></TextBlock>
+        <TextBox Grid.Column="3" Grid.Row="2" Name="TextBoxPost" VerticalAlignment="Center" Margin="5 0 5 0"></TextBox>
+        
+        <TextBlock Grid.Column="2" Grid.Row="3" Text="Телефон" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="5 0 5 0"></TextBlock>
+        <TextBox Grid.Column="3" Grid.Row="3" Name="TextBoxPhone" VerticalAlignment="Center" Margin="5 0 5 0"></TextBox>
+        
+        <TextBlock Grid.Column="2" Grid.Row="4" Text="Эл.почта" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="5 0 5 0"></TextBlock>
+        <TextBox Grid.Column="3" Grid.Row="4" Name="TextBoxEmail" VerticalAlignment="Center" Margin="5 0 5 0"></TextBox>
+        
+        <TextBlock Grid.Column="2" Grid.Row="5" Text="Доступ" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="5 0 5 0"></TextBlock>
+        <TextBox Grid.Column="3" Grid.Row="5" Name="TextBoxAccess" VerticalAlignment="Center" Margin="5 0 5 0"></TextBox>
+        
+        <TextBlock Grid.Column="2" Grid.Row="6" Text="Аттестация" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="5 0 5 0"></TextBlock>
+        <TextBox Grid.Column="3" Grid.Row="6" Name="TextBoxCertification" VerticalAlignment="Center" Margin="5 0 5 0"></TextBox>
+        
+        <TextBlock Grid.Column="2" Grid.Row="7" Text="Дата и время экзамена"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5 0 5 0"></TextBlock>
+        <StackPanel Grid.Column="3" Grid.Row="7"  Orientation="Horizontal">
+            <DatePicker Name="DatePickerExam" VerticalAlignment="Center" Margin="5 0 5 0" Width="150"></DatePicker>
+            <TextBox Name="TextBoxTimeExam" Width="150" VerticalAlignment="Center"></TextBox>
+        </StackPanel>
+        
+        
+        <StackPanel Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Click="ButtonAddPerson_OnClick" Name="ButtonAddPerson" Margin="5">Добавить</Button>
+            <Button Click="ButtonClose_OnClick" Name="ButtonClose" Margin="5">Выход</Button>
+            <TextBlock Name="TextBlockIdPerson" Visibility="Collapsed"></TextBlock>
+        </StackPanel>
+    </Grid>
+</Window>

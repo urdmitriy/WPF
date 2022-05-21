@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net5.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="10.4.0" />
+      <PackageReference Include="MaterialDesignThemes" Version="4.3.0-ci97" />
+      <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="6.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ApiDog\ApiDog.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="img\logo.png" />
+      <Resource Include="img\logo.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="HTML_version" />
+    </ItemGroup>
+
+</Project>
